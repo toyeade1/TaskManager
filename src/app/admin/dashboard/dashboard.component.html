@@ -1,0 +1,269 @@
+<!-- The bootstrap grid system is beign used in this dashboard and it is used in subsets of 12 grids for organizational purposes. -->
+<!-- We are creating a breadcrumb as a secondary for of navigation for the dashboard -->
+<!-- This is used to relay where the user is in the website and give them the ability to get back to the main page as needed -->
+<nav class="col-lg-12 px-2 py-2" style="background-color: #e9e6e6">
+  <ol class="breadcrumb">
+    <!-- The first thing in the breadcrumb is where the home screen is giving the user the ability to go back to the home page which in our case also includes the dashboard   -->
+    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+    <!-- The active is meaning that that is where we currently are on the webpage -->
+    <li class="breadcrumb-item active">DashBoard</li>
+  </ol>
+</nav>
+
+<h5>DashBoard</h5>
+<!-- This is the date pipe for setting the date in a certain format -->
+<h6>{{toDay | date:"mediumDate"}}</h6>
+<!-- The row is a bootstrap class that allows the user to make things in a row format. -->
+<div class="row">
+  <!-- The col-lg-3 is meaning that the box/div will take about 3 out of the standard 12 boxs in a large screen so about a quarter of the space needed and the pb-3 gives padding -->
+  <div class="col-lg-3 pb-3" style="background-color: #e9e6e6">
+    <div class="row">
+      <div
+        class="col-11 text-white text-center mx-2 rounded pt-2 pv-2 font-weight-bold"
+        style="
+          background-color: #a39e9e;
+          font-family: Impact, Haettenschweiler, 'Arial Narrow Bold',
+            sans-sePrif;
+        "
+      >
+        <!-- This above class takes 11 of of hte 12 grid spaces within this grid for the Designation variable described in the component.ts -->
+        <!-- The | symbol is a pipe and this is one of Angular's prebuilt pipes that will transform the data type into all uppercase which in this case is a string. -->
+        {{ Designation | uppercase }}
+      </div>
+      <div class="col-12 text-center mt-2">
+        <img src="../../assets/user.jpg" width="120px" />
+      </div>
+      <div
+        class="col-12 text-center pt-2 pb-2 font-weight-bold"
+        style="font-family: Tahoma; color: black"
+      >
+        {{ Username | lowercase }}
+      </div>
+      <div class="col-12 text-center pt-2 pb-2" style="font-family: Arial">
+        TEAM SUMMARY
+      </div>
+      <div class="col-12 mb-3">
+        <ul class="list-group">
+          <!-- This is a bootstrap styling choice that lets the user create a list group -->
+          <li
+            class="list-group-item d-flex justify-content-between aligh-items-center"
+          >
+            NO. OF TEAM MEMBERS
+            <span
+              class="badge badge-secondary badge-pill"
+              style="font-size: 13px; background-color: grey"
+              >{{ NoOfTeamMembers }}</span
+            >
+          </li>
+          <li
+            class="list-group-item d-flex justify-content-between aligh-items-center"
+          >
+            TOTAL COST OF PROJECTS
+            <span
+              class="badge badge-secondary badge-pill"
+              style="font-size: 13px; background-color: grey"
+              >$ {{ TotalCostOfAllProjects }} k</span
+            >
+          </li>
+          <li
+            class="list-group-item d-flex justify-content-between aligh-items-center"
+          >
+            PENDING TASKS
+            <span
+              class="badge badge-secondary badge-pill"
+              style="font-size: 13px; background-color: grey"
+              >{{ PendingTasks }}</span
+            >
+          </li>
+          <li
+            class="list-group-item d-flex justify-content-between aligh-items-center"
+          >
+            UPCOMING PROJECTS
+            <span
+              class="badge badge-secondary badge-pill"
+              style="font-size: 13px; background-color: grey"
+              >{{ UpComingProjects }}</span
+            >
+          </li>
+        </ul>
+      </div>
+      <div
+        class="col-12 text-center pt-2 pb-2"
+        style="font-family: Arial, Narrow"
+      >
+        CLIENTS
+      </div>
+      <div class="col-12">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item" *ngFor="let client of Clients">{{client}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="row">
+      <div class="col-12 pt-0 pb-2" style="background-color: #e9e6e6">
+        <div class="row mt-2">
+          <div class="col-6 text-left">
+            <div class="dropdown">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Project A
+              </button>
+              <!-- Was getting an error with the dropdown menu not toggling but this was fixed by changing the version of Jquery and Popperjs -->
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <!-- Attached is an event binding for the project dropdown button. we are using the onClick and we are assigning the function onProjectChange which is defined in the ts component -->
+                <li><a class="dropdown-item" href="#" *ngFor="let project of Projects" onclick="return false" (click)="onProjectChange($event)">{{project}}</a></li>
+
+              </ul>
+            </div>
+          </div>
+          <!-- Adding the class d-flex allows bootstrap to treat the div below as a flexbox container and the justify-contend-end simply puts it at the end -->
+          <div class="col-6 text-right d-flex justify-content-end">
+            <div class="dropdown">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton2"
+                data-bs-toggle="dropdown"
+              >
+                2019
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#" *ngFor="let year of Years">
+                  <!-- This showcases the ngSwitch in Angular and the syntax used to achieve it, it is followed by the ngSwitchCase and the ngSwitchDefault  -->
+                  <span [ngSwitch]="year">
+                    <span *ngSwitchCase="'2019'" style="color: green;">{{year}}</span>
+                    <span *ngSwitchCase="'2018'" style="color: blue;">{{year}}</span>
+                    <span *ngSwitchCase="'2017'" style="color: red;">{{year}}</span>
+                    <span  *ngSwitchDefault style="color: black;">{{year}}</span>
+
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="col-11 mx-auto mt-1 text-white text-center py-2 mx-auto rounded font-weight-bold"
+        style="background-color: #718d97; font-family: 'Arial Narrow'"
+      >
+        PROJECT BRIEFING
+      </div>
+      <div class="col-12">
+        <table class="table table-borderless">
+          <tr>
+            <td>Project Cost</td>
+            <!-- The currency pipe is useful in grouping and assigning symbols to currencies and can be applied for multiple different currencies. -->
+            <td>{{ ProjectCost | currency:"USD" }}</td>
+          </tr>
+          <tr>
+            <td>Current Expenditure</td>
+            <td>{{ CurrentExpenditure | currency:"USD"}}</td>
+          </tr>
+          <tr>
+            <td>Available Funds</td>
+            <td>{{ AvailableFunds | currency: "USD"}}</td>
+          </tr>
+        </table>
+      </div>
+      <div
+        class="col-11 mx-auto mt-1 text-white text-center pt-2 pb-2 mx-2 mb-2 rounded font-weight-bold"
+        style="background-color: #718d97; font-family: 'Arial Narrow'"
+      >
+        TEAM MEMBERS SUMMARY
+      </div>
+      <div class="col-12">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Region</th>
+              <th>Team Members Count</th>
+              <th>Temporarily Unavailable Members</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let teamMembersSummary of TeamMembersSummary">
+              <td>
+                <b>{{teamMembersSummary.Region}}</b>
+              </td>
+              <td>{{teamMembersSummary.TeamMembersCount}}</td>
+              <td>{{teamMembersSummary.TemporarilyUnavailableMembers}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3" style="background-color: #e9e6e6">
+    <div class="row">
+      <div
+        class="col-11 mx-auto mt-1 text-white text-center pt-1 [b-2 mx-2 rounded font-weight-bold"
+        style="background-color: #718d97; font-family: 'Arial Narrow'"
+      >
+        TEAM MEMBERS
+      </div>
+      <div class="col-lg-12 pt-2">
+        <!-- By using the accordion class and attaching each button with the accordion id we are able to toggle through each efficiently. -->
+        <div class="accordion" id="accordion1">
+          <div class="card" *ngFor="let teamMembersGroup of TeamMembers; let i = index">
+            <div class="card-header bg-secondary" id="card1">
+              <h2 class="mb-0">
+                <!-- The use of the square brackets in the data-bs-target and the id is for property binding which would be neccessary when dealing with a dynamic section -->
+                <button class="btn btn-link text-white" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#cardbody' + i">{{teamMembersGroup.Region}}</button>
+              </h2>
+            </div>
+            <!-- Here we are using the ngClass which is a way to dynamically add css styling depending on what we are trying -->
+            <!-- to do we are checking if the index is 0, so the first in teamMembersGroup and if it is we are adding the bootstrap component show which will open the first accordian -->
+            <div [id]="'cardbody' + i" class="collapse" data-bs-parent="#accordion1" [ngClass]="(i == 0)?'show':''">
+              <div class="card-body">
+
+                <!-- This ngIf is used as a conditional to either display the first template or the second depending on the condition -->
+                <div *ngIf="i==0; then firstTemplate; else secondTemplate">
+                
+                </div>
+
+                <ng-template #firstTemplate>
+                  <div class="card" *ngFor="let member of teamMembersGroup.Members">
+                    <div class="card-header bg-primary text-white">#{{member.ID}} {{member.Name}}</div>
+                    <div class="card-body">{{member.Status}}</div>
+
+                  </div>
+
+                </ng-template>
+                
+                <!-- This is how a template is generated in angular, you will need to assign it an id with the # key. -->
+                <ng-template #secondTemplate>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let member of teamMembersGroup.Members">
+                      <td>{{member.ID}}</td>
+                      <td [style.color]="(member.Status == 'Busy')?'red':'black'">{{member.Name}}</td>
+                      <td><i [ngClass]="(member.Status == 'Available')?'fa-phone':'fa-user-plus'" class="fa fa-phone"></i> {{member.Status}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </ng-template>
+
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

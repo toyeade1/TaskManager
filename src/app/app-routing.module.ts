@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { AboutComponent } from './about/about.component';
+// since we moved all of the components into the Admin module we have now changed their paths
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { AboutComponent } from './admin/about/about.component';
 import { ContactMeComponent } from './contact-me/contact-me.component';
 
 const routes: Routes = [
