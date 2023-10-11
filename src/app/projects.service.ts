@@ -67,6 +67,7 @@ export class ProjectsService {
   }
 
   // we are adding a search projects
+  // remember the steps to be of type observable where you wil
   searchProject(searchBy: string, searchText: string): Observable<Project[]> {
     return this.httpClient.get<Project[]>(
       'http://localhost:9090/api/projects/search/' +

@@ -33,11 +33,6 @@ export class ProjectsComponent {
   ngOnInit() {
     this.projectService.getAllProjects().subscribe((response: Project[]) => {
       this.projects = response;
-    },
-    // logging the error to see if there is anything wrong with the authentication
-    (err: any) => {
-      console.log(err);
-      alert("Authentication Failed")
     });
   }
 
@@ -139,17 +134,22 @@ export class ProjectsComponent {
   onSearchClick() {
     this.projectService.searchProject(this.searchBy, this.searchText).subscribe(
       (response: Project[]) => {
-        this.projects = response
+        this.projects = response;
       },
       (error) => {
-        console.log(error);}
+        console.log(error);
+      }
     );
   }
 
-  onSearch () {
-  this.projectService.searchProject(this.searchBy, this.searchText).subscribe({
-    next: (response) => {},
-    error: (error) => {console.log(error);}
-  })
+  onSearch() {
+    this.projectService
+      .searchProject(this.searchBy, this.searchText)
+      .subscribe({
+        next: (response) => {},
+        error: (error) => {
+          console.log(error);
+        },
+      });
   }
 }
